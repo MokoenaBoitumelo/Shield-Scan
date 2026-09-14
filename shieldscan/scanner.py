@@ -16,3 +16,14 @@ class SecretScanner:
     def scan_text(self, content: str) -> List[Dict[str, Any]]:
         findings = []
         lines = content.splitlines()
+
+        for line_num, line in enumerate(lines, start=1):
+            # 1. Pattern Matching
+            for secret_type, pattern in DEFAULT_PATTERNS.items():
+                if re.search(pattern, line):
+                    findings.append({
+                        "line": line_num,
+                        "type": secret_type,
+                        "match": line.strip(),
+                        "reason": "Pattern Match"
+                    })
