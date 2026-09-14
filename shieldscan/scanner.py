@@ -8,3 +8,5 @@ DEFAULT_PATTERNS = {
     "Generic Private Key": r"-----BEGIN PRIVATE KEY-----",
     "Generic API Token": r"(?i)(api_key|apikey|secret|password)\s*[:=]\s*['\"]([a-zA-Z0-9_\-]{16,})['\"]"
 }
+
+class SecretScanner:
