@@ -10,3 +10,5 @@ DEFAULT_PATTERNS = {
 }
 
 class SecretScanner:
+    def __init__(self, entropy_threshold: float = 4.5):
+        self.entropy_threshold = entropy_threshold
