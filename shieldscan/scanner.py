@@ -27,3 +27,20 @@ class SecretScanner:
                         "match": line.strip(),
                         "reason": "Pattern Match"
                     })
+
+            # 2. High Entropy Analysis on Individual Tokens
+            tokens = line.split()
+            for token in tokens:
+                clean_token = token.strip("'\",;")
+                if len(clean_token) >= 20:  # Minimum threshold for entropy evaluation
+                    entropy = calculate_shannon_entropy(clean_token)
+                    if entropy >= self.entropy_threshold:
+                        findings.append({
+                            "line": line_num,
+                            "type": "High Entropy String",
+                            "match": clean_token,
+                            "entropy": entropy,
+                            "reason": f"Entropy ({entropy}) exceeds threshold ({self.entropy_threshold})"
+                        })
+
+        return findings
