@@ -96,3 +96,16 @@ Run tests with detailed verbose output:
         
     Bash
     pytest -v
+
+
+
+## 🔬 How Detection Works
+Shield Scan uses a dual-layer strategy to identify high-risk strings:
+
+1. Pattern Matching: Matches strings against predefined regular expressions targeting known formats like AWS Access Keys (AKIA...) and Private Key headers (-----BEGIN PRIVATE KEY-----).   
+
+2. Shannon Entropy Analysis: Evaluates string randomness using Shannon entropy math[cite: 1]:
+$$H(X) = -\sum_{i=1}^{n} P(x_i) \log_2 P(x_i)$$
+Tokens exceeding the set entropy threshold (e.g., 4.5) are flagged as potential cryptographic keys or secret tokens[cite: 1].
+
+
