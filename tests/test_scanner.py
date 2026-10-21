@@ -12,7 +12,20 @@ def test_scanner_detects_aws_key():
     scanner = SecretScanner()
     sample_code = 'AWS_KEY = "AKIAIOSFODNN7EXAMPLE"'
     results = scanner.scan_text(sample_code)
-    
+
     assert len(results) > 0
     assert results[0]["type"] == "AWS Access Key"
-    
+
+def test_scanner_skips_comments():
+    scanner = SecretScanner()
+    comment_code = '# AWS_KEY = "AKIAIOSFODNN7EXAMPLE"'
+    results = scanner.scan_text(comment_code)
+
+    assert len(results) == 0
+
+def test_scanner_high_entropy_detection():
+    scanner = SecretScanner(entropy_threshold=4.0)
+    high_entropy_token = "secret_value = 'g9X2#mL8!zQpW1$vK9pZ'"
+    results = scanner.scan_text(high_entropy_token)
+
+    assert any(item["type"] == "High Entropy String" for item in results)
