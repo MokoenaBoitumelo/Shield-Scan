@@ -37,3 +37,21 @@ In real-world DevSecOps environments, Shield Scan serves key security functions:
    ```bash
    git clone [https://github.com/your-username/Shield-Scan.git](https://github.com/your-username/Shield-Scan.git)
    cd Shield-Scan
+   
+
+
+# To Have Me Working On Your Local Machine
+
+1. Create and Activate a Virtual Environment:
+
+    Bash
+    python3 -m venv venv
+    source venv/bin/activate
+2. Install Dependencies and Editable CLI:
+
+    Bash
+    pip install -r requirements.txt
+    pip install -e .
+
+
+
