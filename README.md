@@ -109,3 +109,30 @@ $$H(X) = -\sum_{i=1}^{n} P(x_i) \log_2 P(x_i)$$
 Tokens exceeding the set entropy threshold (e.g., 4.5) are flagged as potential cryptographic keys or secret tokens[cite: 1].
 
 
+
+
+## 🛠️ Project Structure
+Plaintext
+Shield-Scan/
+├── shieldscan/
+│   ├── __init__.py
+│   ├── cli.py          # Command Line Interface logic
+│   ├── entropy.py      # Shannon Entropy calculation engine
+│   └── scanner.py      # Core secret scanning implementation
+├── tests/
+│   ├── __init__.py
+│   └── test_scanner.py # Unit tests for scanner and entropy functions
+├── codebase.md         # Reference export of project code
+├── README.md           # Project documentation
+├── requirements.txt    # Python dependencies
+└── setup.py            # Package packaging configuration
+
+
+---
+
+### Step-by-Step Implementation Instructions
+
+1. Open VS Code and locate `README.md` at the root of the project[cite: 1].
+2. Replace its existing contents with the code snippet above[cite: 1].
+3. Save the file.
+4. Preview the formatted Markdown file in VS Code by pressing `Ctrl + K`, then `V` (or `Cmd + K`, `V` on macOS).
