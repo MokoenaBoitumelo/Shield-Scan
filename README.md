@@ -42,12 +42,12 @@ In real-world DevSecOps environments, Shield Scan serves key security functions:
 
 # To Have Me Working On Your Local Machine
 
-1. Create and Activate a Virtual Environment:
+Create and Activate a Virtual Environment:
 
     Bash
     python3 -m venv venv
     source venv/bin/activate
-2. Install Dependencies and Editable CLI:
+Install Dependencies and Editable CLI:
 
     Bash
     pip install -r requirements.txt
@@ -55,3 +55,26 @@ In real-world DevSecOps environments, Shield Scan serves key security functions:
 
 
 
+## 💻 Running the Project
+Once installed, use the shieldscan command directly in your terminal:
+
+Basic Directory Scan
+Scan your current working directory:
+
+    Bash
+    shieldscan .
+Scan a Specific File
+Target a single configuration file or script:
+
+    Bash
+    shieldscan path/to/config.py
+Custom Entropy Threshold
+Lower the Shannon entropy threshold (default is 4.5) to catch lower-randomness strings:
+
+    Bash
+    shieldscan . --entropy 4.0
+Output Findings in JSON Format
+Export structured results for integration into security dashboards or scripts:
+
+    Bash
+    shieldscan . --format json
