@@ -1,0 +1,13 @@
+README.md
+setup.py
+shieldscan/__init__.py
+shieldscan/cli.py
+shieldscan/entropy.py
+shieldscan/scanner.py
+shieldscan.egg-info/PKG-INFO
+shieldscan.egg-info/SOURCES.txt
+shieldscan.egg-info/dependency_links.txt
+shieldscan.egg-info/entry_points.txt
+shieldscan.egg-info/top_level.txt
+tests/__init__.py
+tests/test_scanner.py

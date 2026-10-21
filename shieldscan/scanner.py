@@ -1,6 +1,6 @@
 import os
 import re
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Set
 from shieldscan.entropy import calculate_shannon_entropy
 
 # High-risk token regex patterns
@@ -10,8 +10,9 @@ DEFAULT_PATTERNS = {
     "Generic API Token": r"(?i)(api_key|apikey|secret|password)\s*[:=]\s*['\"]([a-zA-Z0-9_\-]{16,})['\"]"
 }
 
-# Directories skipped during traversal
+# Default directories and file extensions to skip
 DEFAULT_IGNORED_DIRS = {".git", "__pycache__", "venv", ".venv", "node_modules", ".idea", ".vscode"}
+DEFAULT_IGNORED_EXTENSIONS = {".md", ".txt", ".png", ".jpg", ".pdf"}
 
 
 class SecretScanner:
@@ -29,6 +30,12 @@ class SecretScanner:
         lines = content.splitlines()
 
         for line_num, line in enumerate(lines, start=1):
+            stripped_line = line.strip()
+
+            # Skip comment lines or raw regex pattern assignments to avoid false positives
+            if stripped_line.startswith("#") or "r\"" in stripped_line or "r'" in stripped_line:
+                continue
+
             # 1. Pattern Matching
             for secret_type, pattern in DEFAULT_PATTERNS.items():
                 if re.search(pattern, line):
@@ -43,7 +50,7 @@ class SecretScanner:
             # 2. High Entropy Analysis on Individual Tokens
             tokens = line.split()
             for token in tokens:
-                clean_token = token.strip("'\",;")
+                clean_token = token.strip("'\",;()")
                 if len(clean_token) >= 20:
                     entropy = calculate_shannon_entropy(clean_token)
                     if entropy >= self.entropy_threshold:
@@ -78,17 +85,23 @@ class SecretScanner:
                 "reason": f"Could not read file: {str(e)}"
             }]
 
-    def scan_directory(self, root_dir: str, ignore_dirs: set = None) -> List[Dict[str, Any]]:
+    def scan_directory(self, root_dir: str, ignore_dirs: Set[str] = None, ignore_exts: Set[str] = None) -> List[Dict[str, Any]]:
         """
         Recursively scans all non-ignored directories and files under root_dir.
         """
         if ignore_dirs is None:
             ignore_dirs = DEFAULT_IGNORED_DIRS
+        if ignore_exts is None:
+            ignore_exts = DEFAULT_IGNORED_EXTENSIONS
 
         all_findings = []
         for current_root, dirs, files in os.walk(root_dir):
             dirs[:] = [d for d in dirs if d not in ignore_dirs]
             for file_name in files:
+                _, ext = os.path.splitext(file_name)
+                if ext.lower() in ignore_exts:
+                    continue
+
                 full_path = os.path.join(current_root, file_name)
                 findings = self.scan_file(full_path)
                 all_findings.extend(findings)

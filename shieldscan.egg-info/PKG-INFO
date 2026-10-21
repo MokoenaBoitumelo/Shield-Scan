@@ -1,0 +1,9 @@
+Metadata-Version: 2.4
+Name: shieldscan
+Version: 0.1.0
+Summary: Shield Scan: Security scanner for detecting hardcoded secrets and high-entropy strings.
+Author: Boitumelo Mokoena
+Requires-Python: >=3.8
+Dynamic: author
+Dynamic: requires-python
+Dynamic: summary
