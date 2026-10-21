@@ -78,3 +78,21 @@ Export structured results for integration into security dashboards or scripts:
 
     Bash
     shieldscan . --format json
+
+
+
+## 🧪 Running Unit Tests
+Shield Scan uses pytest for unit testing.
+
+Ensure your virtual environment is active:
+
+    Bash
+    source venv/bin/activate
+Run the full test suite:
+
+    Bash
+    pytest
+Run tests with detailed verbose output:
+        
+    Bash
+    pytest -v
