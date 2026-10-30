@@ -130,6 +130,8 @@ Shield-Scan/
 
 ---
 
+Verification Code: WTC-QS638A6D
+
 ### Step-by-Step Implementation Instructions
 
 1. Open VS Code and locate `README.md` at the root of the project[cite: 1].
